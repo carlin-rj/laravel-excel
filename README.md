@@ -4,6 +4,8 @@ xlswriter是一款高性能的php excel读写扩展，Laravel-excel基于[Spartn
 如果您的项目使用的是[SpartnerNL/Laravel-Excel](https://github.com/SpartnerNL/Laravel-Excel)并且出现大数据导出性能问题，你不想修改大量的代码，那么当前的包可能会很适合你。
 当然目前的包不可能百分之百兼容所有功能，目前只实现了部分基础的功能。
 
+功能可参考[SpartnerNL/Laravel-Excel](https://docs.laravel-excel.com/3.1/getting-started/)文档
+
 [Xlswriter文档](https://xlswriter-docs.viest.me/zh-cn)
 
 #### 如果本扩展帮助到了你 欢迎star。
@@ -28,15 +30,15 @@ php artisan vendor:publish --provider="Mckue\Excel\ExcelServiceProvider" --tag=c
 #### 1.命令
 ##### 1.1 查看xlswriter扩展是否正常安装
 ```
- php artisan xls:status
+ php artisan php-ext-xlswriter:status
  ```
 展示信息如下:
 ```
 laravel-xlsWriter info:
 +---------+---------------------------------------------+
 | version | 1.0                                         |
-| author  | lysice<https://github.com/Lysice>           |
-| docs    | https://github.com/Lysice/laravel-xlswriter |
+| author  | mckue<https://github.com/mckue>             |
+| docs    | https://github.com/mckue/laravel-excel      |
 +---------+---------------------------------------------+
 XlsWriter extension status:
 +-------------------------------+----------------------------+
