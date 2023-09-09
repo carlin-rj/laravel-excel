@@ -3,10 +3,7 @@
 namespace Mckue\Excel\Concerns;
 
 use Illuminate\Console\OutputStyle;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Support\Collection;
-use InvalidArgumentException;
 use Mckue\Excel\Exceptions\NoFilePathGivenException;
 use Mckue\Excel\Importer;
 use Symfony\Component\Console\Input\StringInput;
@@ -19,7 +16,7 @@ trait Importable
     /**
      * @var OutputStyle|null
      */
-    protected $output;
+    protected ?OutputStyle $output;
 
     /**
      * @param  string|UploadedFile|null  $filePath
@@ -29,8 +26,8 @@ trait Importable
      *
      * @throws NoFilePathGivenException
      */
-    public function import(string|UploadedFile|null $filePath = null, string $disk = null, string $readerType = null)
-    {
+    public function import(string|UploadedFile|null $filePath = null, string $disk = null, string $readerType = null): Reader
+	{
         $filePath = $this->getFilePath($filePath);
 
         return $this->getImporter()->import(
@@ -49,7 +46,7 @@ trait Importable
      *
      * @throws NoFilePathGivenException
      */
-    public function toArray($filePath = null, string $disk = null, string $readerType = null): array
+    public function toArray(string|UploadedFile|null $filePath = null, string $disk = null, string $readerType = null): array
     {
         $filePath = $this->getFilePath($filePath);
 
@@ -69,7 +66,7 @@ trait Importable
      *
      * @throws NoFilePathGivenException
      */
-    public function toCollection($filePath = null, string $disk = null, string $readerType = null): Collection
+    public function toCollection(string|UploadedFile|null $filePath = null, string $disk = null, string $readerType = null): Collection
     {
         $filePath = $this->getFilePath($filePath);
 
@@ -85,8 +82,8 @@ trait Importable
      * @param  OutputStyle  $output
      * @return $this
      */
-    public function withOutput(OutputStyle $output)
-    {
+    public function withOutput(OutputStyle $output): self
+	{
         $this->output = $output;
 
         return $this;
@@ -110,8 +107,8 @@ trait Importable
      *
      * @throws NoFilePathGivenException
      */
-    private function getFilePath($filePath = null)
-    {
+    private function getFilePath(string|UploadedFile|null $filePath = null): string|UploadedFile
+	{
         $filePath = $filePath ?? $this->filePath ?? null;
 
         if (null === $filePath) {
