@@ -218,7 +218,7 @@ class InvoicesExport implements FromCollection
     }
 }
 ```
-我们现在可以下载导出而无需外观：
+我们现在可以下载导出而无需Facades：
 
 ``` 
 return (new InvoicesExport)->download('invoices.xlsx');
