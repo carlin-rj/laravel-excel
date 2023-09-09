@@ -200,7 +200,7 @@ class InvoicesExport implements FromIterator
     }
 }
 ```
-在前面的示例中，我们使用Excel::download外观来启动导出。
+在前面的示例中，我们使用Excel::download Facades来启动导出。
 ``` 
 namespace App\Exports;
 
