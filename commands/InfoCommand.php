@@ -27,7 +27,7 @@ class InfoCommand extends Command
      *
      * @var string
      */
-    protected $description = 'show status for laravel-xlswriter';
+    protected $description = 'show status for laravel-excel';
 
 	/**
      * Execute the console command.
