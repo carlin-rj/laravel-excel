@@ -1,5 +1,6 @@
 {
     "name": "mckue/laravel-excel",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Mckue\\Excel\\": "src/"
