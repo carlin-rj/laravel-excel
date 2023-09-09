@@ -110,7 +110,11 @@ class Sheet
         }
 
         if ($sheetExport instanceof WithHeadings) {
-            $this->worksheet->header($sheetExport->headings());
+			if (ArrayHelper::hasMultipleRows($sheetExport->headings())) {
+				$this->worksheet->data($sheetExport->headings());
+			} else {
+				$this->worksheet->header($sheetExport->headings());
+			}
         }
 
         //if ($sheetExport instanceof WithCharts) {

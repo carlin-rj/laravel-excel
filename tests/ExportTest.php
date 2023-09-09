@@ -4,6 +4,7 @@ namespace Mckue\Excel\Tests;
 
 use Mckue\Excel\Concerns\Exportable;
 use Mckue\Excel\Concerns\FromArray;
+use Mckue\Excel\Concerns\WithHeadings;
 use Mckue\Excel\Concerns\WithTitle;
 use Mckue\Excel\Excel;
 
@@ -23,7 +24,7 @@ class ExportTest extends TestCase
 
 	public function testStoreFromArray()
 	{
-		$export = new class implements FromArray, WithTitle
+		$export = new class implements FromArray, WithTitle, WithHeadings
 		{
 			use Exportable;
 
@@ -42,9 +43,17 @@ class ExportTest extends TestCase
 					6, 7, 8
 				]];
 			}
+
+			public function headings(): array
+			{
+				return [
+					['test1', 'test2', 'test3'],
+					['test111', 'test222', 'test333'],
+				];
+			}
 		};
 
-		\Mckue\Excel\Facades\Excel::store($export, 'test/test.xlsx', null, 'xlsx');
+		\Mckue\Excel\Facades\Excel::store($export, 'test/test.xlsx');
 		//echo $this->SUT->store(new TestExport(), 'test/test.xlsx', null, 'xlsx');
 	}
 }
