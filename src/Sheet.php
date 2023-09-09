@@ -4,6 +4,7 @@ namespace Mckue\Excel;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
+use Mckue\Excel\Concerns\WithMergeCells;
 use Vtiful\Kernel\Excel;
 use Mckue\Excel\Concerns\FromArray;
 use Mckue\Excel\Concerns\FromCollection;
@@ -145,6 +146,13 @@ class Sheet
         if ($sheetExport instanceof FromGenerator) {
             $this->fromGenerator($sheetExport);
         }
+
+		if ($sheetExport instanceof WithMergeCells) {
+			$cells = $sheetExport->mergeCells();
+			foreach ($cells as $cell => $data) {
+				$this->worksheet->mergeCells($cell, $data);
+			}
+		}
 
         $this->close($sheetExport);
     }
