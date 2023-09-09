@@ -82,5 +82,5 @@ class UserExport implements FromArray
 }
 ```
 
-在此感谢 `xlswriter`的开发者`viest`。
+在此感谢 `xlswriter`的开发者`viest` 以及 `SpartnerNL/Laravel-Excel`的开发者。
 如有什么问题可以及时反馈到github哦。
