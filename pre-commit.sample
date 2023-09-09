@@ -1,0 +1,10 @@
+#!/bin/sh
+# Get staging files
+STAGED_PHP_FILES=`git diff --cached --name-only --diff-filter=ACM "*.php" | grep -v "^vendor/"`
+
+# Check if PHP files were staged
+if [ ! -z "$STAGED_PHP_FILES" ]; then
+    echo "# Running php-cs-fixer start"
+    vendor/bin/pint --dirty
+    echo "# Running php-cs-fixer end"
+fi
