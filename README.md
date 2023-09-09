@@ -36,7 +36,7 @@ php artisan vendor:publish --provider="Mckue\Excel\ExcelServiceProvider" --tag=c
  ```
 展示信息如下:
 ```
-laravel-xlsWriter info:
+info:
 +---------+---------------------------------------------+
 | version | 1.0                                         |
 | author  | mckue<https://github.com/mckue>             |
