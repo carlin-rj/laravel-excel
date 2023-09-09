@@ -1,11 +1,11 @@
 <?php
 
-namespace Yc\Excel\Tests;
+namespace Mckue\Excel\Tests;
 
-use Yc\Excel\Concerns\Exportable;
-use Yc\Excel\Concerns\FromArray;
-use Yc\Excel\Concerns\WithTitle;
-use Yc\Excel\Excel;
+use Mckue\Excel\Concerns\Exportable;
+use Mckue\Excel\Concerns\FromArray;
+use Mckue\Excel\Concerns\WithTitle;
+use Mckue\Excel\Excel;
 
 class ExportTest extends TestCase
 {
@@ -44,7 +44,7 @@ class ExportTest extends TestCase
 			}
 		};
 
-		\Yc\Excel\Facades\Excel::store($export, 'test/test.xlsx', null, 'xlsx');
+		\Mckue\Excel\Facades\Excel::store($export, 'test/test.xlsx', null, 'xlsx');
 		//echo $this->SUT->store(new TestExport(), 'test/test.xlsx', null, 'xlsx');
 	}
 }

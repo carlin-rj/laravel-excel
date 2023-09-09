@@ -1,10 +1,10 @@
 <?php
 
-namespace Yc\Excel\Tests;
+namespace Mckue\Excel\Tests;
 
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use Yc\Excel\ExcelServiceProvider;
+use Mckue\Excel\ExcelServiceProvider;
 
 class TestCase extends OrchestraTestCase
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Yc\Excel\Tests;
+namespace Mckue\Excel\Tests;
 
-use Yc\Excel\Concerns\ToArray;
-use Yc\Excel\Excel;
+use Mckue\Excel\Concerns\ToArray;
+use Mckue\Excel\Excel;
 
 class ImportTest extends TestCase
 {
@@ -31,6 +31,6 @@ class ImportTest extends TestCase
 			}
 		};
 
-		\Yc\Excel\Facades\Excel::import($export, 'test/test.xlsx');
+		\Mckue\Excel\Facades\Excel::import($export, 'test/test.xlsx');
 	}
 }
