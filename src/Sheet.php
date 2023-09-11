@@ -286,15 +286,11 @@ class Sheet
         $this->exportable = $sheetExport;
 
         if ($sheetExport instanceof WithColumnFormatting) {
-            foreach ($sheetExport->formatColumns() as $column) {
-                $sheetExport->formatColumnCallback($column, $this->worksheet);
-            }
+			$sheetExport->formatColumns($this->worksheet);
         }
 
         if ($sheetExport instanceof WithRowFormatting) {
-            foreach ($sheetExport->formatRows() as $row) {
-                $sheetExport->formatRowCallback($row, $this->worksheet);
-            }
+			$sheetExport->formatRows($this->worksheet);
         }
 
         if ($sheetExport instanceof WithColumnWidths) {

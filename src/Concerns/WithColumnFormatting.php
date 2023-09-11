@@ -7,16 +7,7 @@ use Vtiful\Kernel\Excel;
 interface WithColumnFormatting
 {
     /**
-     * 设置那一列需要设置格式
+     * 通过worksheet对象设置所需要的单元格格式
      */
-    public function formatColumns(): array;
-
-    /**
-     * 回调一列并且通过worksheet对象设置所需要的单元格格式
-     *
-     * @author: whj
-     *
-     * @date: 2023/9/9 09:40
-     */
-    public function formatColumnCallback(string $column, Excel $worksheet): array;
+    public function formatColumns(Excel $worksheet);
 }
