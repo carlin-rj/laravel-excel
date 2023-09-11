@@ -2,11 +2,14 @@
 
 namespace Mckue\Excel;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
 use Lysice\XlsWriter\Commands\InfoCommand;
 use Mckue\Excel\Files\Filesystem;
 use Mckue\Excel\Files\TemporaryFileFactory;
+use Mckue\Excel\Mixins\DownloadCollection;
+use Mckue\Excel\Mixins\StoreCollection;
 use Mckue\Excel\Transactions\TransactionHandler;
 use Mckue\Excel\Transactions\TransactionManager;
 
@@ -71,6 +74,9 @@ class ExcelServiceProvider extends ServiceProvider
         $this->app->alias('excel', Excel::class);
         $this->app->alias('excel', Exporter::class);
         $this->app->alias('excel', Importer::class);
+
+		Collection::mixin(new DownloadCollection);
+		Collection::mixin(new StoreCollection);
 
 		$this->registerCommands();
     }
