@@ -228,7 +228,7 @@ return (new InvoicesExport)->download('invoices.xlsx');
 return (new InvoicesExport)->store('invoices.xlsx', 's3');
 ```
 
-更多文档可参考:[SpartnerNL/Laravel-Excel](https://docs.laravel-excel.com/3.1/getting-started/)文档
+更多文档可参考([https://docs.laravel-excel.com/3.1/getting-started/](https://github.com/mckue/laravel-excel/wiki))
 
 在此感谢 `xlswriter`的开发者`viest` 以及 `SpartnerNL/Laravel-Excel`的开发者。
 如有什么问题可以及时反馈到github哦。
