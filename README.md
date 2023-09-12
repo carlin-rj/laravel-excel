@@ -1,7 +1,8 @@
 ## Laravel-excel 一款基于xlswriter的laravel扩展包
 [![Latest Stable Version](https://poser.pugx.org/mckue/laravel-excel/v/stable)](https://packagist.org/packages/mckue/laravel-excel)
 [![Total Downloads](https://poser.pugx.org/mckue/laravel-excel/downloads)](https://packagist.org/packages/mckue/laravel-excel)
-[![Latest Unstable Version](https://poser.pugx.org/mckue/laravel-excel/v/unstable)](https://packagist.org/packages/mckue/laravel-excel)
+[![Latest Stable Version](http://poser.pugx.org/mckue/laravel-excel/v)](https://packagist.org/packages/mckue/laravel-excel)
+[![PHP Version Require](http://poser.pugx.org/mckue/laravel-excel/require/php)](https://packagist.org/packages/mckue/laravel-excel)
 [![License](https://poser.pugx.org/mckue/laravel-excel/license)](https://packagist.org/packages/mckue/laravel-excel)
 
 xlswriter是一款高性能的php excel读写扩展，Laravel-excel基于[SpartnerNL/Laravel-Excel](https://github.com/SpartnerNL/Laravel-Excel)代码上，切换成xlswriter扩展。
