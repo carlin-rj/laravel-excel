@@ -152,6 +152,9 @@ class Writer
 		}
 
 		$this->clearListeners();
+
+		$this->spreadsheet->close();
+
 		unset($this->spreadsheet);
 
 		return $temporaryFile;
