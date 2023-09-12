@@ -1,6 +1,18 @@
 {
     "name": "mckue/laravel-excel",
     "license": "MIT",
+    "keywords": [
+        "laravel",
+        "php",
+        "xlswriter",
+        "php-ext-xlswriter",
+        "phpexcel",
+        "excel",
+        "csv",
+        "export",
+        "import",
+        "batch"
+    ],
     "autoload": {
         "psr-4": {
             "Mckue\\Excel\\": "src/"
