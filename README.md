@@ -26,7 +26,7 @@ xlswriter是一款高性能的php excel读写扩展，Laravel-excel基于[Spartn
 composer require mckue/laravel-excel
 ```
 
-发布`laravel-excel.php`配置文件:
+发布`mckue-excel.php`配置文件:
 ```
 php artisan vendor:publish --provider="Mckue\Excel\ExcelServiceProvider" --tag=config
  ```
