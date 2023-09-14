@@ -1,6 +1,7 @@
 {
     "name": "mckue/laravel-excel",
     "license": "MIT",
+    "description": "Laravel-Excel is based on Spartner NL/Lavel Excel code and switches to an xlswriter extension. If your project is using SparnerNL/Lavel Excel and there are big data export performance issues, and you don't want to modify a lot of code, then the current package may be very suitable for you. Of course, the current package cannot be 100% compatible with all functions, and currently only some basic functions have been implemented",
     "keywords": [
         "laravel",
         "php",
