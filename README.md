@@ -17,7 +17,7 @@ xlswriter是一款高性能的php excel读写扩展，Laravel-excel基于[Spartn
 
 ### Laravel-excel使用教程
 #### 环境要求
-- `xlswriter` 1.3.7
+- `xlswriter` > 1.3.7
 - `PHP` >= 8.0
   安装请按照`XlsWriter`的官方文档:[安装教程](https://xlswriter-docs.viest.me/zh-cn/an-zhuang)
 
