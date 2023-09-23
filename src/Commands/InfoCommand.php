@@ -1,6 +1,6 @@
 <?php
 
-namespace Lysice\XlsWriter\Commands;
+namespace Mckue\Excel\Commands;
 
 use Illuminate\Console\Command;
 

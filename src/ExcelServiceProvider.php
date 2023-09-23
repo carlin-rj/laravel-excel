@@ -5,7 +5,7 @@ namespace Mckue\Excel;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
-use Lysice\XlsWriter\Commands\InfoCommand;
+use Mckue\Excel\Commands\InfoCommand;
 use Mckue\Excel\Files\Filesystem;
 use Mckue\Excel\Files\TemporaryFileFactory;
 use Mckue\Excel\Mixins\DownloadCollection;
