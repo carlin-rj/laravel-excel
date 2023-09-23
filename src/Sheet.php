@@ -106,9 +106,9 @@ class Sheet
 
         $this->raise(new BeforeSheet($this, $this->exportable));
 
-        if (! $sheetExport instanceof FromQuery && ! $sheetExport instanceof FromCollection && ! $sheetExport instanceof FromArray) {
-            throw ConcernConflictException::queryOrCollectionAndView();
-        }
+		if (! $sheetExport instanceof FromQuery && ! $sheetExport instanceof FromCollection && ! $sheetExport instanceof FromArray && ! $sheetExport instanceof FromGenerator) {
+			throw ConcernConflictException::queryOrCollectionOrGenerator();
+		}
 
         if ($sheetExport instanceof WithHeadings) {
 			if (ArrayHelper::hasMultipleRows($sheetExport->headings())) {
