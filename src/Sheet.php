@@ -4,6 +4,7 @@ namespace Mckue\Excel;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
+use Mckue\Excel\Concerns\FromView;
 use Mckue\Excel\Concerns\WithMergeCells;
 use Vtiful\Kernel\Excel;
 use Mckue\Excel\Concerns\FromArray;
@@ -106,8 +107,8 @@ class Sheet
 
         $this->raise(new BeforeSheet($this, $this->exportable));
 
-		if (! $sheetExport instanceof FromQuery && ! $sheetExport instanceof FromCollection && ! $sheetExport instanceof FromArray && ! $sheetExport instanceof FromGenerator) {
-			throw ConcernConflictException::queryOrCollectionOrGenerator();
+		if (($sheetExport instanceof FromQuery || $sheetExport instanceof FromCollection || $sheetExport instanceof FromArray) && $sheetExport instanceof FromView) {
+			throw ConcernConflictException::queryOrCollectionAndView();
 		}
 
         if ($sheetExport instanceof WithHeadings) {
@@ -127,30 +128,34 @@ class Sheet
     {
         $this->open($sheetExport);
 
-        if ($sheetExport instanceof FromQuery) {
-            $this->fromQuery($sheetExport);
-        }
+		if ($sheetExport instanceof FromView) {
+			$this->fromView($sheetExport);
+		} else {
+			if ($sheetExport instanceof FromQuery) {
+				$this->fromQuery($sheetExport);
+			}
 
-        if ($sheetExport instanceof FromCollection) {
-            $this->fromCollection($sheetExport);
-        }
+			if ($sheetExport instanceof FromCollection) {
+				$this->fromCollection($sheetExport);
+			}
 
-        if ($sheetExport instanceof FromArray) {
-            $this->fromArray($sheetExport);
-        }
+			if ($sheetExport instanceof FromArray) {
+				$this->fromArray($sheetExport);
+			}
 
-        if ($sheetExport instanceof FromIterator) {
-            $this->fromIterator($sheetExport);
-        }
+			if ($sheetExport instanceof FromIterator) {
+				$this->fromIterator($sheetExport);
+			}
 
-        if ($sheetExport instanceof FromGenerator) {
-            $this->fromGenerator($sheetExport);
-        }
+			if ($sheetExport instanceof FromGenerator) {
+				$this->fromGenerator($sheetExport);
+			}
 
-		if ($sheetExport instanceof WithMergeCells) {
-			$cells = $sheetExport->mergeCells();
-			foreach ($cells as $cell => $data) {
-				$this->worksheet->mergeCells($cell, $data);
+			if ($sheetExport instanceof WithMergeCells) {
+				$cells = $sheetExport->mergeCells();
+				foreach ($cells as $cell => $data) {
+					$this->worksheet->mergeCells($cell, $data);
+				}
 			}
 		}
 
@@ -313,6 +318,38 @@ class Sheet
     {
         $this->worksheet->setColumn($column, $width, $this->worksheet->getHandle());
     }
+
+	public function fromView(FromView $sheetExport, $sheetIndex = null): void
+	{
+		$temporaryFile = $this->temporaryFileFactory->makeLocal(null, 'html');
+		$temporaryFile->put($sheetExport->view()->render());
+
+		$spreadsheet = new Spreadsheet();
+
+		/** @var Html $reader */
+		$reader = IOFactory::createReader('Html');
+
+		// If no sheetIndex given, insert content into the last sheet
+		$sheetIndex = $sheetIndex ?? $spreadsheet->getSheetCount() - 1;
+		$reader->setSheetIndex($sheetIndex);
+		$reader->loadIntoExisting($temporaryFile->getLocalPath(), $spreadsheet);
+		$temporaryFile->delete();
+
+		// Step 2: 保存这个Excel到临时文件
+		$temporaryXlsxFile = $this->temporaryFileFactory->makeLocal(null, 'xlsx');
+		$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+		$writer->save($temporaryXlsxFile->getLocalPath());
+
+		$excel = new Excel(['path' => $temporaryXlsxFile->getDirName()]);
+		$sheet = $excel->openFile($temporaryXlsxFile->getFileName());
+		$worksheet = Sheet::make($sheet, $sheetIndex);
+
+		while (($rowArray = $worksheet->nextRow()) !== null) {
+			$this->appendRows([$rowArray], $sheetExport);
+		}
+
+		$temporaryXlsxFile->delete();  // 删除临时文件
+	}
 
     public function fromQuery(FromQuery $sheetExport): void
     {
