@@ -5,6 +5,7 @@ namespace Mckue\Excel;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Mckue\Excel\Concerns\FromView;
+use Mckue\Excel\Concerns\ShouldAutoSize;
 use Mckue\Excel\Concerns\WithMergeCells;
 use Vtiful\Kernel\Excel;
 use Mckue\Excel\Concerns\FromArray;
@@ -50,6 +51,11 @@ class Sheet
     protected object $exportable;
 
     private Excel $worksheet;
+
+	/**
+	 * Stores the maximum character length for each column index.
+	 */
+    protected array $maxColumnWidths = [];
 
     public function __construct(Excel $worksheet)
     {
@@ -159,8 +165,20 @@ class Sheet
 			}
 		}
 
+		if ($sheetExport instanceof ShouldAutoSize) {
+			$this->autoSize();
+		}
+
         $this->close($sheetExport);
     }
+
+	public function autoSize(): void
+	{
+		foreach ($this->maxColumnWidths as $index => $width) {
+			$columnLetter = Excel::stringFromColumnIndex($index);
+			$this->worksheet->setColumn("$columnLetter:$columnLetter", $width + 3, $this->worksheet->getHandle());
+		}
+	}
 
     public function import(object $import, int $startRow = 1): void
     {
@@ -378,23 +396,6 @@ class Sheet
         $this->appendRows($sheetExport->generator(), $sheetExport);
     }
 
-    public function formatColumn(string $column, string $format): void
-    {
-        // If the column is a range, we wouldn't need to calculate the range.
-        if (stripos($column, ':') !== false) {
-
-            $this->worksheet
-                ->getStyle($column)
-                ->getNumberFormat()
-                ->setFormatCode($format);
-        } else {
-            $this->worksheet
-                ->getStyle($column . '1:' . $column . $this->worksheet->getHighestRow())
-                ->getNumberFormat()
-                ->setFormatCode($format);
-        }
-    }
-
     public function chunkSize(int $chunkSize): self
     {
         $this->chunkSize = $chunkSize;
@@ -429,14 +430,26 @@ class Sheet
                 $row = $sheetExport->map($row);
             }
 
-            return ArrayHelper::ensureMultipleRows(
-                static::mapArraybleRow($row)
-            );
+			$row = static::mapArraybleRow($row);
+
+			$this->calculateMaxColumnWidths($row);
+
+            return ArrayHelper::ensureMultipleRows($row);
         })->toArray();
 
         $this->worksheet->data($rows);
 
     }
+
+	protected function calculateMaxColumnWidths(array $row): void
+	{
+		foreach ($row as $index => $value) {
+			$length = mb_strlen((string) $value);
+			if (!isset($this->maxColumnWidths[$index]) || $length > $this->maxColumnWidths[$index]) {
+				$this->maxColumnWidths[$index] = $length;
+			}
+		}
+	}
 
     public static function mapArraybleRow(mixed $row): array
     {
