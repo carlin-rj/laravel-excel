@@ -56,8 +56,13 @@ class Writer
 			$sheetExports = $export->sheets();
 		}
 
-		foreach ($sheetExports as $sheetExport) {
-			$this->addNewSheet($sheetExport->title())->export($sheetExport);
+		foreach ($sheetExports as $k => $sheetExport) {
+			if ($sheetExport instanceof WithTitle) {
+				$sheetName = $sheetExport->title();
+			} else {
+				$sheetName = 'Sheet' . ($k+1);
+			}
+			$this->addNewSheet($sheetName)->export($sheetExport);
 		}
 
 		return $this->write($export, $temporaryFile, $writerType);
