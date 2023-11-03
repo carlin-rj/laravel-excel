@@ -40,8 +40,8 @@ php artisan vendor:publish --provider="Mckue\Excel\ExcelServiceProvider" --tag=c
 info:
 +---------+---------------------------------------------+
 | version | 1.0                                         |
-| author  | mckue<https://github.com/mckue>             |
-| docs    | https://github.com/mckue/laravel-excel      |
+| author  | mckue<https://github.com/carlin-rj>             |
+| docs    | https://github.com/carlin-rj/laravel-excel      |
 +---------+---------------------------------------------+
 XlsWriter extension status:
 +-------------------------------+----------------------------+
