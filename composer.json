@@ -48,6 +48,9 @@
             "providers": [
                 "Mckue\\Excel\\ExcelServiceProvider"
             ]
+        },
+        "aliases": {
+            "MckueExcel": "Mckue\\Excel\\Facades\\Excel"
         }
     }
 }

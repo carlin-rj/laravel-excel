@@ -25,7 +25,7 @@ class ExcelServiceProvider extends ServiceProvider
 	{
         if ($this->app->runningInConsole()) {
             if ($this->app instanceof LumenApplication) {
-                $this->app->configure('excel');
+                $this->app->configure('mckue-excel');
             } else {
                 $this->publishes([
                     $this->getConfigFile() => config_path('mckue-excel.php'),
@@ -63,7 +63,7 @@ class ExcelServiceProvider extends ServiceProvider
             return new Filesystem($app->make('filesystem'));
         });
 
-        $this->app->bind('excel', function ($app) {
+        $this->app->bind('mckue.excel', function ($app) {
             return new Excel(
                 $app->make(Writer::class),
                 $app->make(Reader::class),
@@ -71,9 +71,9 @@ class ExcelServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->alias('excel', Excel::class);
-        $this->app->alias('excel', Exporter::class);
-        $this->app->alias('excel', Importer::class);
+        $this->app->alias('mckue.excel', Excel::class);
+        $this->app->alias('mckue.excel', Exporter::class);
+        $this->app->alias('mckue.excel', Importer::class);
 
 		Collection::mixin(new DownloadCollection);
 		Collection::mixin(new StoreCollection);
